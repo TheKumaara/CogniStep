@@ -1,0 +1,19 @@
+spec_version: 1
+name: edtech_env
+description: Adaptive AI Teacher RL environment
+type: space
+runtime: fastapi
+app: server.app:app
+port: 8000
+
+tasks:
+  - name: strong_student
+    description: High skill learner
+  - name: average_student
+    description: Average learner
+  - name: weak_student
+    description: Low skill learner
+
+action: EdTechAction
+observation: EdTechObservation
+state: EdTechState
