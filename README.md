@@ -21,12 +21,12 @@ A sophisticated environment simulating an adaptive AI teacher interacting with a
 The simplest way to use the EdTech environment is through the `EdTechEnv` client:
 
 ```python
-from edtech_env.server.client import EdTechEnv
-from edtech_env.server.models import EdTechAction
+from cognistep_env.server.client import EdTechEnv
+from cognistep_env.server.models import EdTechAction
 
 try:
     # Create environment from Docker image
-    edtech = EdTechEnv.from_docker_image("edtech_env:latest")
+    edtech = EdTechEnv.from_docker_image("cognistep_env:latest")
 
     # Reset
     result = edtech.reset()
@@ -56,7 +56,7 @@ Before using the environment, you need to build the Docker image:
 
 ```bash
 # From project root
-docker build -t edtech_env:latest -f edtech_env/server/Dockerfile .
+docker build -t cognistep_env:latest -f cognistep_env/server/Dockerfile .
 ```
 
 ## Deploying to Hugging Face Spaces
@@ -64,7 +64,7 @@ docker build -t edtech_env:latest -f edtech_env/server/Dockerfile .
 You can easily deploy your OpenEnv environment to Hugging Face Spaces using the `openenv push` command:
 
 ```bash
-# From the edtech_env directory (where openenv.yaml is located)
+# From the cognistep_env directory (where openenv.yaml is located)
 openenv push
 
 # Or specify options
@@ -83,7 +83,7 @@ The `openenv push` command will:
 openenv push
 
 # Push to a specific repository
-openenv push --repo-id my-org/edtech_env
+openenv push --repo-id my-org/cognistep_env
 ```
 
 After deployment, your space will be available at `https://huggingface.co/spaces/<repo-id>`.
@@ -141,7 +141,7 @@ The core objective is to design RL-driven agents that outperform these baseline 
 If you already have an EdTech environment server running locally (e.g. at port 8000), you can connect directly:
 
 ```python
-from edtech_env.server.client import EdTechEnv
+from cognistep_env.server.client import EdTechEnv
 
 # Connect to existing server
 edtech = EdTechEnv(base_url="http://localhost:8000")
@@ -156,8 +156,8 @@ result = edtech.step(EdTechAction(action_type="teach"))
 The client supports context manager usage for automatic connection execution:
 
 ```python
-from edtech_env.server.client import EdTechEnv
-from edtech_env.server.models import EdTechAction
+from cognistep_env.server.client import EdTechEnv
+from cognistep_env.server.models import EdTechAction
 
 # Connect with context manager (auto-connects and closes)
 with EdTechEnv(base_url="http://localhost:8000") as env:
@@ -169,7 +169,7 @@ with EdTechEnv(base_url="http://localhost:8000") as env:
 ## Project Structure
 
 ```
-edtech_env/
+cognistep_env/
 ├── __init__.py            
 ├── README.md              # This file
 ├── openenv.yaml           # OpenEnv manifest

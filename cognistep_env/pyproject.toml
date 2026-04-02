@@ -1,5 +1,5 @@
 [project]
-name = "edtech-openenv"
+name = "cognistep_env"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -13,11 +13,11 @@ dependencies = [
     "uvicorn>=0.42.0",
 ]
 [project.scripts]
-server = "edtech_env.server.app:main"
+server = "cognistep_env.server.app:main"
 
 [tool.setuptools]
-packages = ["edtech_env", "edtech_env.server"]
-package-dir = { "edtech_env" = ".", "edtech_env.server" = "server" }
+packages = ["cognistep_env", "cognistep_env.server"]
+package-dir = { "cognistep_env" = ".", "cognistep_env.server" = "server" }
 
 [tool.uv]
 package = true

@@ -4,21 +4,22 @@ from typing import List, Optional
 
 from openai import OpenAI
 
-from edtech_env import EdTechEnv, EdTechAction
+from cognistep_env.server.client import EdTechEnv 
+from cognistep_env.server.models import EdTechAction
 
 
 # ----------------------------
 # CONFIG
 # ----------------------------
 
-IMAGE_NAME = os.getenv("IMAGE_NAME", "edtech-env")
+IMAGE_NAME = os.getenv("IMAGE_NAME", "cognistep_env")
 
 API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
 API_BASE_URL = os.getenv("API_BASE_URL") or "https://openrouter.ai/api/v1"
 MODEL_NAME = os.getenv("MODEL_NAME") or "qwen/qwen3.6-plus:free"
 
-TASK_NAME = "edtech"
-BENCHMARK = "edtech_env"
+TASK_NAME = "cognistep"
+BENCHMARK = "cognistep_env"
 
 MAX_STEPS = 20
 SUCCESS_THRESHOLD = 0.3

@@ -1,5 +1,5 @@
 spec_version: 1
-name: edtech_env
+name: cognistep_env
 description: Adaptive AI Teacher RL environment
 type: space
 runtime: fastapi
