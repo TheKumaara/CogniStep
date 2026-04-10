@@ -1,0 +1,28 @@
+spec_version: 1
+name: cognistep_env
+description: Adaptive AI Teacher RL environment
+type: space
+runtime: fastapi
+app: cognistep_env.server.app:app
+port: 8000
+
+tasks:
+  - id: strong_student
+    name: Strong Student
+    description: High skill learner
+    difficulty: easy
+    grader: cognistep_env.server.grader:grade
+  - id: average_student
+    name: Average Student
+    description: Average learner
+    difficulty: medium
+    grader: cognistep_env.server.grader:grade
+  - id: weak_student
+    name: Weak Student
+    description: Low skill learner
+    difficulty: hard
+    grader: cognistep_env.server.grader:grade
+
+action: cognistep_env.server.models.EdTechAction
+observation: cognistep_env.server.models.EdTechObservation
+state: cognistep_env.server.models.EdTechState
