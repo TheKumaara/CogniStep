@@ -17,8 +17,6 @@ COPY client.py ./cognistep_env/client.py
 COPY models.py ./cognistep_env/models.py
 COPY server/ ./cognistep_env/server/
 
-# Make cognistep_env importable
-RUN echo "" > /app/cognistep_env/__init__.py || true
 
 # Expose port
 EXPOSE 8000
