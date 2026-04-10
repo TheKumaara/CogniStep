@@ -7,15 +7,21 @@ app: server.app:app
 port: 8000
 
 tasks:
-  - name: strong_student
+  - id: strong_student
+    name: Strong Student
     description: High skill learner
-    grader: grader:grade
-  - name: average_student
+    difficulty: easy
+    grader: server.grader:grade
+  - id: average_student
+    name: Average Student
     description: Average learner
-    grader: grader:grade
-  - name: weak_student
+    difficulty: medium
+    grader: server.grader:grade
+  - id: weak_student
+    name: Weak Student
     description: Low skill learner
-    grader: grader:grade
+    difficulty: hard
+    grader: server.grader:grade
 
 action: EdTechAction
 observation: EdTechObservation
