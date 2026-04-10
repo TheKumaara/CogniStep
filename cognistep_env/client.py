@@ -1,7 +1,10 @@
 from openenv.core.env_client import EnvClient
 from openenv.core.client_types import StepResult
 
-from .models import EdTechAction, EdTechObservation, EdTechState
+try:
+    from .models import EdTechAction, EdTechObservation, EdTechState
+except ImportError:
+    from models import EdTechAction, EdTechObservation, EdTechState
 
 
 class EdTechEnv(EnvClient[EdTechAction, EdTechObservation, EdTechState]):

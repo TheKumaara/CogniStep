@@ -1,10 +1,16 @@
 import asyncio
 import os
+import sys
 from typing import List, Optional
+
+# Ensure this directory is on the path so client.py and models.py are found
+# whether running locally or from /tmp/workspace/ (HF Space root)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from openai import OpenAI
 
-from cognistep_env import EdTechEnv, EdTechAction
+from client import EdTechEnv  # noqa: E402
+from models import EdTechAction  # noqa: E402
 
 
 # ----------------------------
