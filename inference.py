@@ -4,8 +4,8 @@ from typing import List, Optional
 
 from openai import OpenAI
 
-from cognistep_env.server.client import EdTechEnv 
-from cognistep_env.server.models import EdTechAction
+from cognistep_env.client import EdTechEnv
+from cognistep_env.models import EdTechAction
 
 
 # ----------------------------
