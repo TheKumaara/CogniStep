@@ -3,14 +3,18 @@ import os
 import sys
 from typing import List, Optional
 
-# Ensure this directory is on the path so client.py and models.py are found
-# whether running locally or from /tmp/workspace/ (HF Space root)
+# Ensure this directory is on the path so local package modules can be imported
+# whether running from the package or from the root submission folder.
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from openai import OpenAI
 
-from client import EdTechEnv  # noqa: E402
-from models import EdTechAction  # noqa: E402
+try:
+    from server.environment import EdTechEnvironment
+    from models import EdTechAction
+except ImportError:
+    from cognistep_env.server.environment import EdTechEnvironment
+    from cognistep_env.models import EdTechAction
 
 
 # ----------------------------
@@ -23,7 +27,7 @@ API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
 API_BASE_URL = os.getenv("API_BASE_URL") or "https://api.openai.com/v1"
 MODEL_NAME = os.getenv("MODEL_NAME") or "nvidia/nemotron-3-super-120b-a12b:free"
 
-TASK_NAME = "cognistep"
+TASK_IDS = ["strong_student", "average_student", "weak_student"]
 BENCHMARK = "cognistep_env"
 
 MAX_STEPS = 20
@@ -113,35 +117,32 @@ async def main():
 
     client = OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
 
-    rewards: List[float] = []
-    steps_taken = 0
-    score = 0.0
-    success = False
+    for task_id in TASK_IDS:
+        rewards: List[float] = []
+        steps_taken = 0
+        score = 0.0
+        success = False
 
-    log_start(task=TASK_NAME, env=BENCHMARK, model=MODEL_NAME)
+        log_start(task=task_id, env=BENCHMARK, model=MODEL_NAME)
 
-    # 🔥 Docker-based environment (official way)
-    env = await EdTechEnv.from_docker_image(IMAGE_NAME, ports={8000: 8000})
-
-    try:
-        result = await env.reset()        
-        obs = result.observation
+        env = EdTechEnvironment(task_name=task_id, seed=42)
+        result = env.reset()
+        obs = result
 
         for step in range(1, MAX_STEPS + 1):
-
             if result.done:
                 break
 
             action_str = choose_action(client, obs)
 
-            result = await env.step(
+            result = env.step(
                 EdTechAction(action_type=action_str)
             )
 
-            reward = result.reward or 0.0
-            done = result.done
+            reward = getattr(result, 'reward', 0.0) or 0.0
+            done = getattr(result, 'done', False)
             error = None
-            obs = result.observation
+            obs = result
 
             rewards.append(reward)
             steps_taken = step
@@ -153,13 +154,6 @@ async def main():
 
         score = max(0.0, min(1.0, sum(rewards) / 100))
         success = score >= SUCCESS_THRESHOLD
-
-    finally:
-        try:
-            await env.close()
-        except Exception as e:
-            print(f"[DEBUG] env.close() error: {e}", flush=True)
-
         log_end(success, steps_taken, score, rewards)
 
 
