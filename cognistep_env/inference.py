@@ -14,8 +14,8 @@ from cognistep_env import EdTechEnv, EdTechAction
 IMAGE_NAME = os.getenv("IMAGE_NAME", "cognistep_env")
 
 API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
-API_BASE_URL = os.getenv("API_BASE_URL") or "https://openrouter.ai/api/v1"
-MODEL_NAME = os.getenv("MODEL_NAME") or "qwen/qwen3.6-plus:free"
+API_BASE_URL = os.getenv("API_BASE_URL") or "https://api.openai.com/v1"
+MODEL_NAME = os.getenv("MODEL_NAME") or "nvidia/nemotron-3-super-120b-a12b:free"
 
 TASK_NAME = "cognistep"
 BENCHMARK = "cognistep_env"
