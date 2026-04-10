@@ -23,6 +23,6 @@ tasks:
     difficulty: hard
     grader: server.grader:grade
 
-action: EdTechAction
-observation: EdTechObservation
-state: EdTechState
+action: models.EdTechAction
+observation: models.EdTechObservation
+state: models.EdTechState
