@@ -23,6 +23,6 @@ tasks:
     difficulty: hard
     grader: cognistep_env.server.grader:grade
 
-action: cognistep_env.server.models.EdTechAction
-observation: cognistep_env.server.models.EdTechObservation
-state: cognistep_env.server.models.EdTechState
+action: cognistep_env.models.EdTechAction
+observation: cognistep_env.models.EdTechObservation
+state: cognistep_env.models.EdTechState
