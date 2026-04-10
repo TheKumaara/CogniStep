@@ -9,10 +9,13 @@ port: 8000
 tasks:
   - name: strong_student
     description: High skill learner
+    grader: grader:grade
   - name: average_student
     description: Average learner
+    grader: grader:grade
   - name: weak_student
     description: Low skill learner
+    grader: grader:grade
 
 action: EdTechAction
 observation: EdTechObservation
